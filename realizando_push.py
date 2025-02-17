@@ -6,7 +6,7 @@ REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/usuario"  # Defina o cami
 import subprocess
 
 def run_command(command):
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=REPO_PATH)
     if result.returncode != 0:
         print(f"Erro ao executar: {command}\n{result.stderr}")
     else:
