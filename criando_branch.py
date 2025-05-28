@@ -1,7 +1,8 @@
 import subprocess
 import os
 
-REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/usuario"  # Defina o caminho do repositório aqui
+REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/agenteqaIA/agenteqaIA"  # Defina o caminho do repositório aqui
+branch_main = "master"
 branch_developer = "develop"
 
 def run_command(command):
@@ -16,10 +17,10 @@ def automate_git_workflow():
     feature_branch = f"feature/{branch_name}"
 
     print("\nTrocando para a branch main...")
-    run_command("git checkout main")
+    run_command(f"git checkout {branch_main}")
 
     print("\nExcluindo todas as branches locais, exceto main...")
-    run_command("git branch | grep -v 'main' | xargs git branch -D")
+    run_command(f"git branch | grep -v '{branch_main}' | xargs git branch -D")
 
     print("\nAtualizando a branch main...")
     run_command("git pull")

@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/agenteqaIA/agenteqaIA"  # Defina o caminho do repositório aqui
+REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/agenteqaIA/agenteqaIA" # Defina o caminho do repositório aqui
 
 import subprocess
 
@@ -12,7 +12,7 @@ def run_command(command):
     else:
         print(result.stdout)
 
-def git_commit_push():
+def git_commit():
     commit_message = input("Digite a mensagem do commit: ")
 
     print("\nAdicionando arquivos ao commit...")
@@ -21,10 +21,7 @@ def git_commit_push():
     print(f"\nRealizando commit com a mensagem: {commit_message}...")
     run_command(f"git commit -m \"{commit_message}\"")
 
-    print("\nEnviando alterações para o repositório remoto...")
-    run_command("git push origin $(git rev-parse --abbrev-ref HEAD)")
-
     print("\nCommit e push realizados com sucesso!")
 
 if __name__ == "__main__":
-    git_commit_push()
+    git_commit()
