@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-REPO_PATH = "/Users/jeanheberth/Documents/GitClone/FrontEnd/BorrachariaPerola" # Defina o caminho do repositório aqui
+REPO_PATH = "/Users/jeanheberth/Documents/GitClone/API/agenteqaIA/agenteqaIA" # Defina o caminho do repositório aqui
 
 import subprocess
 
