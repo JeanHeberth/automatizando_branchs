@@ -1,6 +1,6 @@
-import os
 import subprocess
-
+import os
+import sys
 
 def run_command(command, repo_path):
     result = subprocess.run(command, cwd=repo_path, capture_output=True, text=True, shell=True)
@@ -9,6 +9,21 @@ def run_command(command, repo_path):
     else:
         print(result.stdout)
     return result
+
+def setup_ssh():
+    try:
+        print("🔐 Configurando chave SSH...")
+
+        # Inicia ssh-agent
+        subprocess.run("eval $(ssh-agent -s)", shell=True, check=True)
+
+        # Adiciona chave ao agente
+        chave = os.path.expanduser("~/.ssh/id_ed25519")
+        subprocess.run(f"ssh-add {chave}", shell=True, check=True)
+
+        print("✅ SSH configurado com sucesso.\n")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Falha ao configurar SSH: {e}")
 
 def get_default_branch(repo_path):
     try:
@@ -24,7 +39,6 @@ def get_default_branch(repo_path):
     except subprocess.CalledProcessError:
         pass
 
-    # Fallback: verifica presença de main/master
     result = subprocess.run(["git", "branch", "-r"], capture_output=True, text=True, cwd=repo_path)
     branches = result.stdout
     if "origin/main" in branches:
@@ -132,10 +146,16 @@ def fazer_commit_e_push(repo_path):
 
     print("\n✅ Commit e push realizados com sucesso!")
 
-# === MENU INTERATIVO UNIVERSAL ===
+# === MENU ===
 
 def menu():
-    print("📁 Automação Git Interativa (Mac / Linux / Windows)\n")
+    print("📁 Automação Git Interativa Universal\n")
+
+    usar_ssh = input("Deseja configurar SSH para repositórios privados? (s/n): ").strip().lower()
+    if usar_ssh == "s":
+        setup_ssh()
+    else:
+        print("🔓 SSH não será configurado.\n")
 
     repo_path = input("Digite o caminho completo do repositório Git: ").strip()
     if not os.path.isdir(repo_path):
